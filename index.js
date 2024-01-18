@@ -48,9 +48,6 @@ function playRockPaperScissors(){
     }
     }
 function playGame(){
-    for (let i = 0; i < 5; i++){
-        playRockPaperScissors();
-    }
     console.log(`The computer won ${computerPoints} games`);
     console.log(`You won ${playerPoints} games`);
     if (playerPoints===computerPoints){
