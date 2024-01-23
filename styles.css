@@ -3,7 +3,8 @@ body{
 }
 
 .buttons-div,
-.score-div{
+.score-div,
+.choices-div{
     display: flex;
     height: 200px;
     background-color: #99dfb2;
@@ -36,7 +37,9 @@ h1{
     font-weight: bold;
     text-align: center;
 }
-p{
+p,
+#computer-score,
+#player-score{
     font-family: "Roboto", Arial, Helvetica, sans-serif;
     font-size: 25px;
     color: whitesmoke;
