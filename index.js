@@ -1,63 +1,76 @@
-//have the computer calculate a choice, return choice
-function getComputerChoice(){
-    let move = "";
-    let choice = Math.floor(Math.random() * 3);
-    if (choice === 0){
-        move = "rock";
-    }else if (choice===1){
-        move = "paper";
-    }else if (choice===2){
-        move = "scissors";
-    }
-    return move;
-    }
-//have the player make a choice, return choice
-function getPlayerSelection(){
-    let playerChoice = prompt("Enter your choice: Rock, Paper, or Scissors").toLowerCase();
-    return playerChoice;
-    }
+
+// make rock, paper, scissors 
+const rockButton = document.getElementById("rock");
+const scissorsButton = document.getElementById("scissors");
+const paperButton = document.getElementById("paper");
+// make scores display
+let compScoreDisplay = document.getElementById("computer-score");
+let playerScoreDisplay = document.getElementById("player-score");
+let titleDiv = document.getElementById("title");
+// make place record choices
+let playerChoiceDisplay = document.getElementById("player-choice");
+let compChoiceDisplay = document.getElementById("computer-choice");
 // initiate scores
 let computerPoints = 0;
 let playerPoints = 0;
-//play a game
-function playRockPaperScissors(){
-//get both choices
-    let computerSelection= getComputerChoice();
-    let playerSelection = getPlayerSelection();
-    //evauate choices and determine tie or winner
-    if (computerSelection === playerSelection){
-        console.log(`You chose ${playerSelection}`);
-        console.log(`The computer chose ${computerSelection}`);
-        console.log("Tie Game! Play again");
-        playRockPaperScissors();
-    }else if ((computerSelection===
-        'rock'&&playerSelection==="scissors")||
-        (computerSelection==='scissors' && playerSelection==="paper")|| 
-        (computerSelection==='paper' && playerSelection==="rock")){
-            console.log(`You chose ${playerSelection}`);
-            console.log(`The computer chose ${computerSelection}`);
-            console.log("You lose");
-            computerPoints++;
-    }else if ((playerSelection==='rock' && computerSelection==="scissors")||
-        (playerSelection==='scissors'&&computerSelection==="paper")|| 
-        (playerSelection==='paper'&&computerSelection==="rock")){
-            console.log(`You chose ${playerSelection}`);
-            console.log(`The computer chose ${computerSelection}`);
-            console.log("You win!");
-            playerPoints++;
+//have the computer calculate a choice, return choice
+function getComputerChoice() {
+    let choice = Math.floor(Math.random() * 3);
+    if (choice === 0) {
+        move = "rock";
+        compChoiceDisplay.textContent = "✊";
+    } else if (choice === 1) {
+        move = "paper";
+        compChoiceDisplay.textContent = "✋";
+    } else if (choice === 2) {
+        move = "scissors";
+        compChoiceDisplay.textContent = "✌";
     }
-    }
-function playGame(){
-    for (let i = 0; i < 5; i++){
-        playRockPaperScissors();
-    }
-    console.log(`The computer won ${computerPoints} games`);
-    console.log(`You won ${playerPoints} games`);
-    if (playerPoints===computerPoints){
-        console.log("Tie Game!");
-    }else if (playerPoints<computerPoints){
-        console.log("The computer wins");
-    }else if (playerPoints>computerPoints){
-        console.log("You win!");
-    }
+    return move;
 }
+
+//have the player make a choice, return choice
+rockButton.addEventListener("click", () => {
+    let playerChoice = 'rock';
+    playerChoiceDisplay.textContent = "✊";
+    playRound(playerChoice);
+});
+scissorsButton.addEventListener("click", () => {
+    let playerChoice = 'scissors';
+    playerChoiceDisplay.textContent = "✌";
+    playRound(playerChoice);
+});
+paperButton.addEventListener("click", () => {
+    let playerChoice = 'paper';
+    playerChoiceDisplay.textContent = "✋";
+    playRound(playerChoice);
+});
+
+//play a game
+function playRound(choice){
+    let computerSelection= getComputerChoice();
+    if (computerSelection === choice){
+       // do nothing
+    }else if ((computerSelection===
+        'rock'&& choice==="scissors")||
+        (computerSelection==='scissors' && choice==="paper")|| 
+        (computerSelection==='paper' && choice==="rock")){
+            computerPoints++;
+            compScoreDisplay.innerHTML = `${String(computerPoints)}`
+    }else if ((choice==='rock' && computerSelection==="scissors")||
+        (choice==='scissors'&&computerSelection==="paper")|| 
+        (choice==='paper'&&computerSelection==="rock")){
+            playerPoints++;
+            playerScoreDisplay.innerHTML = `${String(playerPoints)}`;
+    }
+    if (computerPoints >= 5 || playerPoints >= 5){
+        playerScoreDisplay.innerHTML = `You won ${playerPoints} games`;
+        compScoreDisplay.innerHTML = `Computer won ${computerPoints} games`;
+        if (playerPoints<computerPoints){
+            titleDiv.innerHTML="<h1>🏆The computer wins!</h1>";
+        }
+        else if (computerPoints<playerPoints){
+            titleDiv.innerHTML="<h1>🏆You win!</h1>";
+        }
+        }
+    }
